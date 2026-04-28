@@ -901,8 +901,8 @@ nav {
 // ============================================================
 // DATA & CONSTANTS
 // ============================================================
-const START_DATE = new Date(2025, 4, 1); // May 1
-const END_DATE   = new Date(2025, 7, 15); // Aug 15
+const START_DATE = new Date(2026, 4, 1); // Maio 2026
+const END_DATE   = new Date(2026, 7, 15); // Agosto 2026
 const TOTAL_DAYS = Math.ceil((END_DATE - START_DATE) / 86400000) + 1; // 107 days
 
 const MOTIVATIONAL_QUOTES = [
@@ -1173,10 +1173,13 @@ function renderDashboard() {
     `<div class="level-badge"><i class="fa-solid fa-star"></i>${lvl.name}</div>`;
 
   // Countdown
-  const diff = END_DATE - now;
-  const days = Math.ceil(diff / 86400000);
-  const hours = Math.floor((diff % 86400000) / 3600000);
-  const mins  = Math.floor((diff % 3600000) / 60000);
+  const target = new Date(2026, 7, 15, 23, 59, 59); // fim do dia 15
+const diff = target - now;
+  const totalMs = Math.max(0, diff);
+
+const days = Math.floor(totalMs / (1000 * 60 * 60 * 24));
+const hours = Math.floor((totalMs / (1000 * 60 * 60)) % 24);
+const mins = Math.floor((totalMs / (1000 * 60)) % 60);
   document.getElementById('countdownBlocks').innerHTML = `
     <div class="countdown-unit"><div class="countdown-num">${Math.max(0,days)}</div><div class="countdown-lbl">Dias</div></div>
     <div class="countdown-unit"><div class="countdown-num">${String(hours).padStart(2,'0')}</div><div class="countdown-lbl">Horas</div></div>
